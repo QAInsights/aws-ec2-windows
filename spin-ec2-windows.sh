@@ -37,20 +37,21 @@ key_name="win11-mum"
 count=1
 security_group="sg-43ec5f28"
 name="Preethi"
+windows_username="Administrator"
 
 instance_id=$(aws ec2 run-instances --image-id $image_id --count $count --instance-type $instance_type \
 --key-name $key_name --security-group-ids $security_group | jq -r '.Instances[0].InstanceId')
 
-echo "The instance ID is $instance_id"
+echo "The instance ID is $instance_id."
 echo $instance_id > ~/.instance_id
 
 public_dns_name=$(aws ec2 describe-instances --instance-ids ${instance_id} \
 --query 'Reservations[].Instances[].PublicDnsName' --output text)
 
-echo "The public DNS name is $public_dns_name"
-echo "Waiting for few moments..."
-echo "$(date) The password is getting generated. Have patience. It is not me, it is AWS :)"
-echo "Meanwhile here are some quotes about 💙"
+echo "The public DNS name is $public_dns_name."
+echo "Waiting for a few moments..."
+echo "The password is getting generated. Have patience. It is not me, it is AWS :)"
+echo "Meanwhile, here are some quotes about 💙💙💙"
 
 password_status=false
 while ! $password_status
@@ -71,10 +72,10 @@ done
 
 echo "Hey $name 💙! Please open the RDP client and use the below credentials to login."
 echo "********************"
-echo -e "✅ The user name is \t\t Administrator"
+echo -e "✅ The user name is \t\t $windows_username"
 echo -e "✅ The password is \t\t $get_password"
 echo -e "✅ The public DNS name is \t $public_dns_name"
 echo "********************"
-echo "Once the purpose is done, please execute ./terminate_ec2.sh"
+echo "Once the purpose is done, please execute ./terminate_ec2.sh, else we will get a bill :)"
 echo "🙏 Thank you :)"
 echo "********************"
