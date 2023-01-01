@@ -36,7 +36,7 @@ instance_type="t2.medium"
 key_name="win11-mum"
 count=1
 security_group="sg-43ec5f28"
-name="Preethi"
+name="Your_Name"
 windows_username="Administrator"
 
 instance_id=$(aws ec2 run-instances --image-id $image_id --count $count --instance-type $instance_type \
