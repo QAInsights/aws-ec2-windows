@@ -21,6 +21,8 @@
 # banking needs in India. Instead of opting for a VPN, I created this script.
 
 instance_id=$(cat ~/.instance_id 2>/dev/null) 
+region="ap-south-1"
+
 if [ -f ~/.instance_id ]
 then
     echo "***** This script will delete the instance $instance_id. *****"
@@ -28,7 +30,7 @@ then
 
     case ${answer:0:1} in
         y|Y )
-            terminate_status=$(aws ec2 terminate-instances --instance-ids $instance_id) 
+            terminate_status=$(aws ec2 terminate-instances --region $region --instance-ids $instance_id) 
             echo "The instance has been deleted successfully."           
         ;;
         * )
